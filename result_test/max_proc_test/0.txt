@@ -1,0 +1,4 @@
+The process <Process name='Process-1' parent=16980 started>:
+started working at 1721939590.8445745
+finished its work at 1721939592.8590775
+The result of the process: 3
