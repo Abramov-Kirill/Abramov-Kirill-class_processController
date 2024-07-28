@@ -76,8 +76,8 @@ def helper_test_alive_count(a, b):
 
 def helper_test_multiple_starts(a, b):
     result = a + b
-    print(result)
-    time.sleep(1)
+    #print(result)
+    time.sleep(2)
 
 
 
@@ -143,5 +143,13 @@ def test_multiple_starts():
     pc = ProcessController(5)
     tasks = [(helper_test_multiple_starts, (i, 2)) for i in range(10)]
     pc.start(tasks, 10)
-    tasks_2 = [(helper_test_multiple_starts, (15, 5)) for i in range(10)]
+    tasks_2 = [(helper_test_multiple_starts, (15, 5)) for i in range(17)]
     pc.start(tasks_2, 10)
+
+    while pc.alive_count() > 0:
+        print(f'{pc.wait_count()}    {pc.alive_count()}')
+        time.sleep(0.5)
+
+    pc.wait()
+    print(f'{pc.wait_count()}    {pc.alive_count()}')
+    print(pc.all_thread)

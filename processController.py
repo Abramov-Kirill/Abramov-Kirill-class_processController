@@ -30,6 +30,7 @@ class ProcessController:
                 time.sleep(0.0001)
             with self.loc:  #Подсчет активных в данный момент потоков/процессов
                 self.active_process -= 1
+                self.all_thread.remove(threading.current_thread())
             if pr.is_alive():  #Блокировка процесса и выброс исключения, времени работы превышающем max_exec_time
                 pr.terminate()
                 raise Exception(f'The process {pr.name} has exceeded the waiting time\n '
@@ -41,7 +42,6 @@ class ProcessController:
         Данная функция создает несколько потоков, которые в свою очередь создают процессы для выполнения фунций из tasks.
         Также данные потоки предназначены для подчета времени работы процессов.
         """
-        self.all_thread = []  # Хранит все созданные потоки
         for func, args in tasks:
             th = Thread(target=self.run_process, args=(func, args, max_exec_time))
             self.all_thread.append(th)
