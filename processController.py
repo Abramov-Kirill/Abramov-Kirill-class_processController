@@ -43,8 +43,8 @@ class ProcessController:
         """
         self.all_thread = []  # Хранит все созданные потоки
         for func, args in tasks:
-            self.all_thread.append(Thread(target=self.run_process, args=(func, args, max_exec_time)))
-        for th in self.all_thread:
+            th = Thread(target=self.run_process, args=(func, args, max_exec_time))
+            self.all_thread.append(th)
             th.start()
 
     def get_max_proc(self):

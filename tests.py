@@ -74,6 +74,12 @@ def helper_test_alive_count(a, b):
     result = a + b
     time.sleep(1)
 
+def helper_test_multiple_starts(a, b):
+    result = a + b
+    print(result)
+    time.sleep(1)
+
+
 
 def test_max_proc():
     pc = ProcessController()
@@ -128,3 +134,14 @@ def test_alive_count():
     while pc.alive_count() > 0:
         print(pc.alive_count())
         time.sleep(0.7)
+
+
+def test_multiple_starts():
+    """
+    Данная функция тестирует добавление задач в очередь
+    """
+    pc = ProcessController(5)
+    tasks = [(helper_test_multiple_starts, (i, 2)) for i in range(10)]
+    pc.start(tasks, 10)
+    tasks_2 = [(helper_test_multiple_starts, (15, 5)) for i in range(10)]
+    pc.start(tasks_2, 10)
